@@ -1,9 +1,10 @@
+require("dotenv").config()
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const {db} = require('../config/database');
 const taskRouter = express.Router();
 
-const secretKey = 'your-secret-key';
+const secretKey = process.env.SECRET;
 
 // Middleware to verify JWT
 const authenticateToken = (req, res, next) => {
