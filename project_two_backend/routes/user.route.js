@@ -24,7 +24,6 @@ userRouter.post('/signup', async (req, res) => {
 // Login route
 userRouter.post('/login', (req, res) => {
   const { username, password } = req.body;
-
   db.get(`SELECT * FROM users WHERE username = ?`, [username], async (err, user) => {
     if (err || !user || !(await bcrypt.compare(password, user.password))) {
       return res.status(400).json({ error: 'Invalid username or password' });
