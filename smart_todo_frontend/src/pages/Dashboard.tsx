@@ -1,78 +1,81 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TodoForm } from "../component/TodoForm";
 import { TodoList } from "../component/TodoList";
 import { Todo } from "../types";
 import { Link } from "react-router-dom";
-
-const initialTodos: Todo[] = [
-  {
-    id: 1,
-    userId: 1,
-    title: "Complete Electron App",
-    description:
-      "Finish the development of the Electron to-do list application",
-    category: "Development",
-    priority: 1,
-    deadline: "2024-06-01",
-    completed: true,
-  },
-  {
-    id: 2,
-    userId: 1,
-    title: "Write Documentation",
-    description: "Prepare the documentation for the new features",
-    category: "Writing",
-    priority: 2,
-    deadline: "2024-06-05",
-    completed: false,
-  },
-  {
-    id: 3,
-    userId: 1,
-    title: "Team Meeting",
-    description: "Discuss project milestones and next steps",
-    category: "Meetings",
-    priority: 3,
-    deadline: "2024-06-03",
-    completed: false,
-  },
-  {
-    id: 4,
-    userId: 1,
-    title: "Code Review",
-    description: "Review code submitted by the team",
-    category: "Development",
-    priority: 2,
-    deadline: "2024-06-02",
-    completed: false,
-  },
-  {
-    id: 5,
-    userId: 1,
-    title: "Fix Bugs",
-    description: "Resolve bugs reported by users",
-    category: "Development",
-    priority: 1,
-    deadline: "2024-06-04",
-    completed: false,
-  },
-];
+import { AuthContext } from "../context/AuthContext";
 
 export const Dashboard: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>(initialTodos);
+  const { logout, token } = useContext(AuthContext);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
-  const addTodo = (todo: Omit<Todo, "id">) => {
-    setTodos([...todos, { id: todos.length + 1, ...todo }]);
+  const fetchTasks = async () => {
+    try {
+      if (!token) return;
+      const res = await fetch("http://localhost:8000/api/tasks", {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token,
+        },
+      });
+      const data = await res.json();
+      setTodos(data);
+    } catch (error) {
+      console.error("Fetch tasks error:");
+    }
   };
 
-  const updateTodo = (id: number, updatedTodo: Partial<Todo>) => {
-    setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, ...updatedTodo } : todo))
-    );
+  const addTodo = async (todo: Omit<Todo, "id" | "userId">) => {
+    try {
+      if (!token) return;
+      await fetch("http://localhost:8000/api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token,
+        },
+        body: JSON.stringify(todo),
+      });
+      fetchTasks();
+    } catch (error) {
+      console.error("Add task error:");
+    }
   };
 
-  const deleteTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const updateTodo = async (id: number, updatedTodo: Partial<Todo>) => {
+    try {
+      if (!token) return;
+      await fetch(`http://localhost:8000/api/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token,
+        },
+        body: JSON.stringify(updatedTodo),
+      });
+      fetchTasks();
+    } catch (error) {
+      console.error("Update task error:");
+    }
+  };
+
+  const deleteTodo = async (id: number) => {
+    try {
+      if (!token) return;
+      await fetch(`http://localhost:8000/api/tasks/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token,
+        },
+      });
+      fetchTasks();
+    } catch (error) {
+      console.error("Delete task error:");
+    }
   };
 
   return (
@@ -82,7 +85,7 @@ export const Dashboard: React.FC = () => {
           <div className="text-xl font-semibold">Smart Todo App</div>
           <div className="flex gap-4">
             <Link to="/user/dashboard">Analytics</Link>
-            <Link to="/">LogOut &rarr;</Link>
+            <button onClick={() => logout()}>LogOut &rarr;</button>
           </div>
         </div>
         <hr className="w-full my-1" />

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Todo } from "../types";
 
 interface TodoFormProps {
-  addTodo: (todo: Omit<Todo, "id">) => void;
+  addTodo: (todo: Omit<Todo, "id" | "userId">) => void;
 }
 
 export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
@@ -16,7 +16,6 @@ export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
     e.preventDefault();
     if (title && description && category && deadline) {
       addTodo({
-        userId: 1,
         title,
         description,
         category,
@@ -33,10 +32,7 @@ export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="py-2 px-4 text-white shadow-md rounded"
-    >
+    <form onSubmit={handleSubmit} className="py-2 px-4 text-white rounded">
       <h2 className="font-semibold mb-2">Add Todo :</h2>
       <div className="grid grid-cols-2 gap-2">
         <div className="col-span-2">

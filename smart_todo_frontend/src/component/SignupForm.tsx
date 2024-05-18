@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 interface SignupData {
   username: string;
@@ -8,6 +9,8 @@ interface SignupData {
 }
 
 export const SignupForm: React.FC = () => {
+  const { signup } = useContext(AuthContext);
+
   const [signupData, setSignupData] = useState<SignupData>({
     username: "",
     password: "",
@@ -22,25 +25,10 @@ export const SignupForm: React.FC = () => {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (signupData.password !== signupData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-    try {
-      const res = await fetch("http://localhost:8000/api/users/signup", {
-        method: "POST",
-        body: JSON.stringify(signupData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      console.warn(data);
-    } catch (error) {
-      console.log(error);
-    }
+    const { username, password, confirmPassword } = signupData;
+    signup(username, password, confirmPassword);
   };
 
   return (

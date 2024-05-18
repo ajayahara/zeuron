@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 interface LoginData {
   username: string;
@@ -7,6 +8,8 @@ interface LoginData {
 }
 
 export const LoginForm: React.FC = () => {
+  const { login } = useContext(AuthContext);
+
   const [loginData, setLoginData] = useState<LoginData>({
     username: "",
     password: "",
@@ -20,21 +23,10 @@ export const LoginForm: React.FC = () => {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const res = await fetch("http://localhost:8000/api/users/login", {
-        method: "POST",
-        body: JSON.stringify(loginData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data=await res.json();
-      console.warn(data);
-    } catch (error) {
-      console.log(error);
-    }
+    const { username, password } = loginData;
+    login(username, password);
   };
 
   return (
