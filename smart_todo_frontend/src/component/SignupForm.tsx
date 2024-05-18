@@ -11,18 +11,18 @@ export const SignupForm: React.FC = () => {
   const [signupData, setSignupData] = useState<SignupData>({
     username: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setSignupData({
       ...signupData,
-      [name]: value
+      [name]: value,
     });
   };
 
-  const handleSubmit =async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (signupData.password !== signupData.confirmPassword) {
       alert("Passwords do not match");
@@ -36,7 +36,7 @@ export const SignupForm: React.FC = () => {
           "Content-Type": "application/json",
         },
       });
-      const data=await res.json();
+      const data = await res.json();
       console.warn(data);
     } catch (error) {
       console.log(error);
@@ -55,14 +55,17 @@ export const SignupForm: React.FC = () => {
               <h1>Login &rarr;</h1>
             </Link>
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2 justify-center items-center mt-7">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-2 justify-center items-center mt-7"
+          >
             <div>
               <h1 className="text-base text-gray-200">Username</h1>
               <input
                 type="text"
                 name="username"
                 placeholder="Enter username here"
-                className="rounded-md px-2 py-2 bg-gray-300 text-gray-600 focus:outline-none font-semibold md:w-72 lg:w-[340px]"
+                className="rounded-md px-2 py-2 bg-white text-gray-600 focus:outline-none  md:w-72 lg:w-[340px]"
                 value={signupData.username}
                 onChange={handleChange}
                 required
@@ -74,7 +77,7 @@ export const SignupForm: React.FC = () => {
                 type="password"
                 name="password"
                 placeholder="Enter password here"
-                className="rounded-md px-2 py-2 bg-gray-300 text-gray-600 focus:outline-none font-semibold md:w-72 lg:w-[340px]"
+                className="rounded-md px-2 py-2 bg-white text-gray-600 focus:outline-none md:w-72 lg:w-[340px]"
                 value={signupData.password}
                 onChange={handleChange}
                 required
@@ -86,7 +89,7 @@ export const SignupForm: React.FC = () => {
                 type="password"
                 name="confirmPassword"
                 placeholder="Confirm your password"
-                className="rounded-md px-2 py-2 bg-gray-300 text-gray-600 focus:outline-none font-semibold md:w-72 lg:w-[340px]"
+                className="rounded-md px-2 py-2 bg-white text-gray-600 focus:outline-none  md:w-72 lg:w-[340px]"
                 value={signupData.confirmPassword}
                 onChange={handleChange}
                 required

@@ -59,7 +59,7 @@ export const LoginForm: React.FC = () => {
                 type="text"
                 name="username"
                 placeholder="Enter username here"
-                className="rounded-md px-2 py-2 bg-gray-300 text-gray-600 focus:outline-none md:w-72 lg:w-[340px]"
+                className="rounded-md px-2 py-2 bg-white text-gray-600 focus:outline-none md:w-72 lg:w-[340px]"
                 value={loginData.username}
                 onChange={handleChange}
                 required
@@ -71,7 +71,7 @@ export const LoginForm: React.FC = () => {
                 name="password"
                 type="password"
                 placeholder="Enter password here"
-                className="rounded-md px-2 py-2 bg-gray-300 text-gray-600 focus:outline-none md:w-72 lg:w-[340px]"
+                className="rounded-md px-2 py-2 bg-white text-gray-600 focus:outline-none md:w-72 lg:w-[340px]"
                 value={loginData.password}
                 onChange={handleChange}
                 required
@@ -87,12 +87,12 @@ export const LoginForm: React.FC = () => {
             </div>
           </form>
           <div className="text-center my-6">
-            <a
-              href="#"
+            <Link
+              to="/signup"
               className="text-sm font-medium text-gray-200 hover:text-white hover:underline underline-offset-4"
             >
-              Forgot your Password?
-            </a>
+              Don&apos;t have an account ?
+            </Link>
           </div>
         </div>
       </div>
