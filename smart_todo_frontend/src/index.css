@@ -14,3 +14,6 @@
   -moz-osx-font-smoothing: grayscale;
   @apply bg-white;
 }
+.example::-webkit-scrollbar {
+  display: none;
+}

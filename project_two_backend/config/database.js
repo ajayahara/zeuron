@@ -21,12 +21,13 @@ const createTables = () => {
   db.run(`CREATE TABLE IF NOT EXISTS tasks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER,
-    title TEXT,
-    description TEXT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
     category TEXT,
     priority INTEGER,
     deadline TEXT,
-    FOREIGN KEY(userId) REFERENCES users(id)
+    completed BOOLEAN NOT NULL CHECK (completed IN (0, 1)),
+    FOREIGN KEY (userId) REFERENCES users(id)
   )`);
 };
 

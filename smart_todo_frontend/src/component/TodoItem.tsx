@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Todo } from "../types";
+import { CheckIcon, Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
 
 interface TodoItemProps {
   todo: Todo;
@@ -18,6 +19,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
   const [category, setCategory] = useState(todo.category);
   const [priority, setPriority] = useState(todo.priority);
   const [deadline, setDeadline] = useState(todo.deadline);
+  const [completed, setCompleted] = useState(todo.completed);
 
   const handleSave = () => {
     updateTodo(todo.id, { title, description, category, priority, deadline });
@@ -25,7 +27,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
   };
 
   return (
-    <div className="p-4 mb-2 bg-white shadow-md rounded">
+    <div className="p-2 bg-white shadow-md rounded">
       {isEditing ? (
         <div>
           <input
@@ -71,24 +73,36 @@ export const TodoItem: React.FC<TodoItemProps> = ({
           </button>
         </div>
       ) : (
-        <div>
-          <h3 className="text-lg font-bold">{todo.title}</h3>
-          <p className="text-gray-700">{todo.description}</p>
-          <p className="text-gray-700">Category: {todo.category}</p>
-          <p className="text-gray-700">Priority: {todo.priority}</p>
-          <p className="text-gray-700">Deadline: {todo.deadline}</p>
-          <button
-            onClick={() => setIsEditing(true)}
-            className="px-4 py-2 bg-yellow-500 text-white rounded mr-2"
-          >
-            Edit
-          </button>
-          <button
-            onClick={() => deleteTodo(todo.id)}
-            className="px-4 py-2 bg-red-500 text-white rounded"
-          >
-            Delete
-          </button>
+        <div className="text-gray-700">
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-bold line-clamp-1">{todo.title}</h3>
+            <div className="flex  gap-2">
+              {completed ? (
+                <button disabled title="Completed" className="cursor-pointer">✔️</button>
+              ) : (
+                <>
+                  <button onClick={() => setIsEditing(true)}>
+                    <Pencil2Icon className="w-4 h-4 text-gray-700" />
+                  </button>
+                  <button onClick={() => deleteTodo(todo.id)}>
+                    <TrashIcon className="w-4 h-4 text-red-700" />
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+          <p className=" line-clamp-2">{todo.description}</p>
+          <div className="flex gap-2">
+            <button title="Category" className="hover:underline">
+              #{todo.category}
+            </button>
+            <button title="Priority" className="hover:underline">
+              {todo.priority}
+            </button>
+            <button title="Deadline" className="hover:underline">
+              {todo.deadline}
+            </button>
+          </div>
         </div>
       )}
     </div>
