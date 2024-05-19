@@ -4,6 +4,7 @@ import { TodoList } from "../component/TodoList";
 import { Todo } from "../types";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { NotificationList } from "../component/NotificationList";
 
 export const Dashboard: React.FC = () => {
   const { logout, token } = useContext(AuthContext);
@@ -83,9 +84,9 @@ export const Dashboard: React.FC = () => {
       <div className="h-[10vh] flex flex-col justify-center items-center py-2">
         <div className="w-full flex justify-between py-2 px-4">
           <div className="text-xl font-semibold">Smart Todo App</div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 justify-center items-center">
             <Link to="/user/dashboard">Analytics</Link>
-            <button onClick={() => logout()}>LogOut &rarr;</button>
+            <button className="flex justify-center items-center" onClick={() => logout()}>LogOut &rarr;</button>
           </div>
         </div>
         <hr className="w-full my-1" />
@@ -105,6 +106,7 @@ export const Dashboard: React.FC = () => {
         </div>
         <div className="col-span-1">
           <h2 className="mb-2 text-lg font-semibold">Notification :</h2>
+          <NotificationList/>
         </div>
       </div>
     </div>
