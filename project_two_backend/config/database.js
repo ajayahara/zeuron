@@ -26,7 +26,7 @@ const createTables = () => {
     category TEXT,
     priority INTEGER,
     deadline TEXT,
-    completed BOOLEAN NOT NULL CHECK (completed IN (0, 1)),
+    completed BOOLEAN,
     FOREIGN KEY (userId) REFERENCES users(id)
   )`);
 };

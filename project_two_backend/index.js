@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors=require("cors")
 const {userRouter} = require('./routes/user.route');
 const {taskRouter} = require('./routes/task.route');
+const { notificationRouter } = require("./routes/notification.route");
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -14,6 +15,7 @@ app.get('/',(req,res)=>{
 })
 app.use('/api/users', userRouter);
 app.use('/api/tasks', taskRouter);
+app.use('/api/notifications', notificationRouter)
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
