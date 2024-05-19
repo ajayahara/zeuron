@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const links = [
   {
@@ -59,14 +59,14 @@ export const Sidebar = () => {
               key={i}
               className= {`px-1 py-2 ${pathname==link.path?"bg-blue-400 rounded border-r-2 border-b-2 border-pink-900 shadow-lg":""}`}
             >
-              <a href={link.path} className="flex flex-col gap-1">
+              <Link to={link.path} className="flex flex-col">
                 <img
                   src={link.source}
                   alt={link.text}
                   className="w-6 aspect-square m-auto"
                 />
                 <span>{link.text}</span>
-              </a>
+              </Link>
             </li>
           );
         })}
