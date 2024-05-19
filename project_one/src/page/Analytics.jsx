@@ -13,17 +13,17 @@ export const Analytics = () => {
   }, []);
   return (
     <div className="h-full flex">
-      <div className="h-full w-56 relative py-1 mx-8">
-        <img src="/human1.png" alt="human" className="h-full w-full" />
+      <div className="h-full w-72 relative py-4 bordered">
+        <img src="/human1.png" alt="human" className="h-full mx-auto" />
         <img
           src="/heart_motion1.png"
           alt="heart"
-          className="absolute w-full z-20 top-12 left-10"
+          className="absolute w-2/3 z-20 top-16 right-4"
         />
         <img
           src="bottom_loading.png"
           alt="bottom"
-          className="absolute w-full bottom-[0]"
+          className="absolute w-full left-0 bottom-1"
         />
         <motion.div
           className="absolute w-56 h-full z-[10] bg-[#0d0e17] top-0 left-0 border-b-2 border-[#42829e]"

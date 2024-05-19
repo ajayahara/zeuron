@@ -6,6 +6,7 @@ export const AllRoute = () => {
     <Routes>
       <Route path="/" element={<CardioLogy />} />
       <Route path="/analytics" element={<Analytics />} />
+      <Route path="/heart" element={<CardioLogy />} />
     </Routes>
   );
 };
