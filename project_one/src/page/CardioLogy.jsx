@@ -8,11 +8,14 @@ export const CardioLogy = () => {
 
   const animateHeightThenWidth = async () => {
     await controls.start({ height: 0 });
-    await controls1.start({ width: "100%" });
     await controls.start({ width: 0 });
   };
+  const animateHeart=async ()=>{
+    await controls1.start({ width: "100%" });
+  }
   useEffect(() => {
     animateHeightThenWidth();
+    animateHeart();
   }, []);
   return (
     <div className="w-full h-full flex">
@@ -22,7 +25,7 @@ export const CardioLogy = () => {
           <motion.div
             className="w-0 overflow-hidden aspect-square rounded-full"
             animate={controls1}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay:0.8 }}
           >
             <img
               src="/heart_motion1.png"
@@ -112,17 +115,17 @@ export const CardioLogy = () => {
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="col-span-2"
+            className="col-span-2 h-28"
           >
-            <img src="/Box.png" alt="Box" className="w-full" />
+            <img src="/Box.png" alt="Box" className="w-full h-full" />
           </motion.div>
           <motion.div
             initial={{ x: "-180%" }}
             animate={{ x: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="col-span-3 col-start-4"
+            className="col-span-3 col-start-4 h-28"
           >
-            <img src="/Box1.png" alt="Box" />
+            <img src="/Box1.png" alt="Box" className="w-full h-full" />
           </motion.div>
         </div>
       </div>
