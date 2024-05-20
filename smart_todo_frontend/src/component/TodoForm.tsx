@@ -1,33 +1,38 @@
 import React, { useState } from "react";
 import { Todo } from "../types";
 
+type newTodo=Omit<Todo, "id" | "userId">;
+
 interface TodoFormProps {
-  addTodo: (todo: Omit<Todo, "id" | "userId">) => void;
+  addTodo: (todo:newTodo ) => void;
+}
+
+const initialState:newTodo={
+  title: "",
+  description: "",
+  category: "",
+  priority: 1,
+  deadline: "",
+  completed:false
 }
 
 export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [priority, setPriority] = useState(1);
-  const [deadline, setDeadline] = useState("");
+  const [formState, setFormState] = useState<newTodo>(initialState);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormState((prevState) => ({
+      ...prevState,
+      [name]: name === "priority" ? Number(value) : value,
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const { title, description, category, deadline } = formState;
     if (title && description && category && deadline) {
-      addTodo({
-        title,
-        description,
-        category,
-        priority,
-        deadline,
-        completed: false,
-      });
-      setTitle("");
-      setDescription("");
-      setCategory("");
-      setPriority(1);
-      setDeadline("");
+      addTodo({...formState});
+      setFormState({...initialState});
     }
   };
 
@@ -39,44 +44,54 @@ export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
           <label className="block mb-1">Title</label>
           <input
             type="text"
+            name="title"
             className="rounded-md px-2 py-2 bg-white w-full text-gray-600 focus:outline-none"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={formState.title}
+            onChange={handleChange}
           />
         </div>
         <div className="row-start-2 col-start-2 row-end-4">
           <label className="block mb-1">Description</label>
           <textarea
+            name="description"
             className="rounded-md px-2 py-2 bg-white w-full text-gray-600 focus:outline-none h-[85%]"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={formState.description}
+            onChange={handleChange}
           ></textarea>
         </div>
         <div>
           <label className="block mb-1">Category</label>
           <input
             type="text"
+            name="category"
             className="rounded-md px-2 py-2 bg-white w-full text-gray-600 focus:outline-none"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            value={formState.category}
+            onChange={handleChange}
           />
         </div>
         <div>
           <label className="block mb-1">Priority</label>
-          <input
-            type="number"
+          <select
+            name="priority"
             className="rounded-md px-2 py-2 bg-white w-full text-gray-600 focus:outline-none"
-            value={priority}
-            onChange={(e) => setPriority(Number(e.target.value))}
-          />
+            value={formState.priority}
+            onChange={handleChange}
+          >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
         </div>
         <div className="col-start-1 col-end-3 row-start-4 row-end-5">
           <label className="block mb-1">Deadline</label>
           <input
             type="date"
+            name="deadline"
             className="rounded-md px-2 py-2 bg-white w-full text-gray-600 focus:outline-none"
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
+            value={formState.deadline}
+            onChange={handleChange}
           />
         </div>
         <button
