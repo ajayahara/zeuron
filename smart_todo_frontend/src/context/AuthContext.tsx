@@ -23,9 +23,7 @@ export const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE2MDg3OTE5LCJleHAiOjE3MTYwOTE1MTl9.P7Ea1w4WO6Gf-QV4QlORLwJH41qxmOKz57NYId9V-ho"
-  );
+  const [token, setToken] = useState<string | null>(null);
 
   const signup = async (
     username: string,
