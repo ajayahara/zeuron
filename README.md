@@ -2,7 +2,11 @@
 
 ### Demo link:
     - Github : https://github.com/ajayahara/zeuron
-    - Live : 
+    - Smart Todo Backend : https://zeuron-bvqk.onrender.com/
+    - Smart Todo Frontend : https://voluble-rolypoly-4f63c8.netlify.app/
+    - Figma Design : https://exquisite-horse-dba884.netlify.app
+    - Live Demo : https://drive.google.com/file/d/1LPtczytU0lJqVHPsxuoSNLIwl2mdWWTa/view?usp=drive_link
+
 ## Starting the Server Locally
 
 To start the server locally, follow these steps:

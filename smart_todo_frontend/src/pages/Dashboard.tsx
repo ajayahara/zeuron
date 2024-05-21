@@ -19,7 +19,7 @@ export const Dashboard: React.FC = () => {
   const fetchTasks = async () => {
     try {
       if (!token) return;
-      const url = new URL("http://localhost:8000/api/tasks");
+      const url = new URL("https://zeuron-bvqk.onrender.com/api/tasks");
       const params: any = { page: currentPage };
       if (selectedPriority) {
         params.priority = selectedPriority;
@@ -42,7 +42,7 @@ export const Dashboard: React.FC = () => {
   const addTodo = async (todo: Omit<Todo, "id" | "userId">) => {
     try {
       if (!token) return;
-      await fetch("http://localhost:8000/api/tasks", {
+      await fetch("https://zeuron-bvqk.onrender.com/api/tasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export const Dashboard: React.FC = () => {
   const updateTodo = async (id: number, updatedTodo: Partial<Todo>) => {
     try {
       if (!token) return;
-      await fetch(`http://localhost:8000/api/tasks/${id}`, {
+      await fetch(`https://zeuron-bvqk.onrender.com/api/tasks/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ export const Dashboard: React.FC = () => {
   const deleteTodo = async (id: number) => {
     try {
       if (!token) return;
-      await fetch(`http://localhost:8000/api/tasks/${id}`, {
+      await fetch(`https://zeuron-bvqk.onrender.com/api/tasks/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

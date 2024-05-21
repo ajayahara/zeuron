@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     try {
-      const res = await fetch("http://localhost:8000/api/users/signup", {
+      const res = await fetch("https://zeuron-bvqk.onrender.com/api/users/signup", {
         method: "POST",
         body: JSON.stringify({ username, password }),
         headers: {
@@ -57,7 +57,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (username: string, password: string) => {
     try {
-      const res = await fetch("http://localhost:8000/api/users/login", {
+      const res = await fetch("https://zeuron-bvqk.onrender.com/api/users/login", {
         method: "POST",
         body: JSON.stringify({ username, password }),
         headers: {
