@@ -10,7 +10,7 @@ export const NotificationList: React.FC = () => {
     const fetchNotifications = async () => {
       try {
         if (!token) return;
-        const res = await fetch("https://zeuron-bvqk.onrender.com/notifications", {
+        const res = await fetch("https://zeuron-bvqk.onrender.com/api/notifications", {
           headers: {
             "Content-Type": "application/json",
             authorization: token,
