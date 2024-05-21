@@ -1,5 +1,13 @@
-# Smart Todo Full Stack Application
 
+# Smart Todo Full Stack Application
+## Note
+ The Login and Signup functionality will work fine if want to create a new account. But try with below to see pagination and notification parts since in this account I have created 15 to 20 todos.
+ ```bash
+ {
+  username:tajaya28,
+  password:123456
+ }
+ ```
 ### Demo link:
     - Github : https://github.com/ajayahara/zeuron
     - Smart Todo Backend : https://zeuron-bvqk.onrender.com/
